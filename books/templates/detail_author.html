@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}{{ author.first_name }} {{ author.last_name }}{% endblock %}
+
+{% block content %}
+    <div class="detail-name">
+        <h1>{{ author.first_name }} {{ author.last_name }}
+            <i><sub>{{ author.date }}</sub></i>
+        </h1>
+    </div>
+    <div class="detail-desk">
+        <p>{{ author.bio }}</p>
+    </div>
+    <span>Books of this author: </span>
+    <div class="detail-book">
+        {% for book in books %}
+            <p><a href="{{ book.get_absolute_url }}">{{ book }}</a></p>
+        {% endfor %}
+    </div>
+{% endblock %}
+

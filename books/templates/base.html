@@ -7,21 +7,20 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}{% endblock %}</title>
+
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
     <link href="{% static "css/style.css" %}" rel="stylesheet">
 </head>
 <body>
 
     <header>
-        <span class="logo">BookView</span>
+        <a href="{% url 'books:book_list' %}"><span class="logo">BookView</span></a>
         <ul class="menu">
             <li {% if section == "books" %}class="selected"{% endif %}>
-                <a href="{% url 'books:books' %}">Books</a>
+                <a href="{% url 'books:book_list' %}">Books</a>
             </li>
             <li {% if section == "author" %}class="selected"{% endif %}>
-                <a href="#">Authors</a>
-            </li>
-            <li {% if section == "categories" %}class="selected"{% endif %}>
-                <a href="#">Categories</a>
+                <a href="{% url 'books:author_list' %}">Authors</a>
             </li>
         </ul>
     </header>

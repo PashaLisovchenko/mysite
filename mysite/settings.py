@@ -121,11 +121,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-  os.path.join(BASE_DIR, "books/static",),
+  os.path.join(BASE_DIR, "static"),
 )
 
-MEDIA_URL = '/static/media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(
-    BASE_DIR, "books/static/media/")
+    BASE_DIR, "media")
 print(STATICFILES_DIRS)
 print(MEDIA_ROOT)

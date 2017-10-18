@@ -2,19 +2,17 @@
 {% block title %}List Books{% endblock %}
 {% block content %}
     <div class="row">
-
-    {% for book in books%}
-        <div class="col-md-6">
-            <div class="book">
-                <h1>{{book.title}}</h1>
-                <p>{{book.description|truncatechars:70}}</p>
-                <a href="{{ book.get_absolute_url }}">
+    {% for a in author%}
+        <div class="col-md-12">
+            <div class="author">
+                <h1>{{a.first_name}} {{ a.last_name }}</h1>
+                <p>{{a.bio|truncatechars:170}}</p>
+                <a href="{{ a.get_absolute_url }}">
                    <button type="button" class="btn-book">Detail</button>
                 </a>
                 <br>
             </div>
         </div>
     {% endfor %}
-
     </div>
 {% endblock %}

@@ -54,8 +54,7 @@ def category_detail(request, category):
 def create_category(request):
     if request.method == 'POST':
         Category.objects.create(name=request.POST['title'])
-    cat = Category.objects.all()
     context = {
-        'cat': cat,
+        'section': 'create_category',
     }
     return render(request, 'create_category.html', context)

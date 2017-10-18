@@ -36,14 +36,6 @@ h1 {
     margin:1rem 0 2rem 0;
 }
 
-h2 {
-    margin:3rem 0 2rem;
-}
-
-ol {
-    line-height:1.5;
-}
-
 header {
     padding:1rem 10rem;
     font-size:1.4rem;
@@ -80,7 +72,9 @@ header ul.menu li.selected a, #header ul.menu li.selected a:hover {
 header a {
     color:#f3f7cc;
 }
+
 header a:hover {
+    text-decoration: none;
     color:#fff;
 }
 
@@ -102,7 +96,7 @@ header a:hover {
 }
 
 .book h1{
-    color: #03e776;
+    color: #03994d;
     font-size: 2.2rem;
 }
 .btn-book{
@@ -119,7 +113,7 @@ header a:hover {
     box-shadow: 0 0 18.69px 2.31px rgba(204, 204, 223, 0.5);
 }
 .btn-book:hover{
-    background-color: #03e776;
+    background-color: #03994d;
     color: #fff;
     box-shadow: none;
     cursor: pointer;
@@ -164,4 +158,35 @@ header a:hover {
 }
 .detail-name h1{
     font-weight: bold;
+}
+
+form {
+    overflow:auto;
+}
+
+label {
+    float:left;
+    clear:both;
+    color:#333;
+    margin-bottom:.4rem;
+}
+
+input, textarea {
+    width: 300px;
+    clear:both;
+    float:left;
+    margin:0 0 1rem;
+    background:#efefef;
+    border:0;
+    padding:.6rem 1rem;
+    font-size:1.4rem;
+}
+
+input[type=submit], a.button {
+    font-weight:bold;
+    background:#12c064;
+    color:#fff;
+    padding:1rem 2rem;
+    font-size:1.5rem;
+    text-transform:uppercase;
 }

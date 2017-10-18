@@ -10,6 +10,6 @@ urlpatterns = [
     url(r'^(?P<book>[-\w]+)/$', views.book_detail, name='book_detail'),
 
     url(r'^category/(?P<category>[-\w]+)/$', views.category_detail, name='category_detail'),
+    url(r'^category/create/new_category$', views.create_category, name="create_category"),
 
-    url(r'^create_category/$', views.create_category, name="create_category"),
 ]

@@ -23,6 +23,11 @@
                 <a href="{% url 'books:author_list' %}">Authors</a>
             </li>
         </ul>
+        <ul class="menu" style="float: right">
+            <li {% if section == "create_category" %}class="selected"{% endif %}>
+                <a href="{% url 'books:create_category' %}">CreateCategory</a>
+            </li>
+        </ul>
     </header>
 
     <div class="content">

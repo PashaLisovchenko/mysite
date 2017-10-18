@@ -1,0 +1,38 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static "css/style.css" %}" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <span class="logo">BookView</span>
+        <ul class="menu">
+            <li {% if section == "books" %}class="selected"{% endif %}>
+                <a href="{% url 'books:books' %}">Books</a>
+            </li>
+            <li {% if section == "author" %}class="selected"{% endif %}>
+                <a href="#">Authors</a>
+            </li>
+            <li {% if section == "categories" %}class="selected"{% endif %}>
+                <a href="#">Categories</a>
+            </li>
+        </ul>
+    </header>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer>
+
+    </footer>
+</body>
+</html>

@@ -21,7 +21,7 @@ class Author(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.first_name+' '+self.last_name)
-            super(Author, self).save(*args, **kwargs)
+        super(Author, self).save(*args, **kwargs)
 
 
 class Category(models.Model):
@@ -39,7 +39,7 @@ class Category(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
-            super(Category, self).save(*args, **kwargs)
+        super(Category, self).save(*args, **kwargs)
 
 
 class Book(models.Model):
@@ -51,6 +51,9 @@ class Book(models.Model):
     image = models.ImageField(blank=True,
                               null=True,
                               upload_to='image/')
+    preview_image = models.ImageField(blank=True,
+                                      null=True,
+                                      upload_to='preview/')
     author = models.ManyToManyField(Author)
     category = models.ForeignKey(Category)
 
@@ -64,4 +67,4 @@ class Book(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
-            super(Book, self).save(*args, **kwargs)
+        super(Book, self).save(*args, **kwargs)

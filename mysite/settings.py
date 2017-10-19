@@ -39,6 +39,7 @@ INSTALLED_APPS = [
 
     # my application
     'books',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +128,12 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(
     BASE_DIR, "media")
+
+CELERY_BROKER_URL = 'redis://'
+CELERY_RESULT_BACKEND = 'redis://'
+CELERY_TIMEZONE = 'UTC'
+# CELERYBEAT_SCEDULE = 'mytask': {
+#     'task': '',
+#     'schedule': timedelta(seconds=5),
+#     'args': (16, )
+# }

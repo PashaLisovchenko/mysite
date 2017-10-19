@@ -97,7 +97,7 @@ header a:hover {
 
 .book h1{
     color: #03994d;
-    font-size: 2.2rem;
+    font-size: 2rem;
 }
 .btn-book{
     background-color: #ffffff;
@@ -176,7 +176,7 @@ input, textarea {
     clear:both;
     float:left;
     margin:0 0 1rem;
-    background:#efefef;
+    background:#d7d7d7;
     border:0;
     padding:.6rem 1rem;
     font-size:1.4rem;

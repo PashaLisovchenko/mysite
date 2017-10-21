@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils.text import slugify
+from django.db.models import signals
 
 
 class Author(models.Model):
@@ -68,3 +69,12 @@ class Book(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         super(Book, self).save(*args, **kwargs)
+
+
+def post_save_book(sender, instance, signal, *args, **kwargs):
+    from .tasks import preview_image
+    if instance.image and not instance.preview_image:
+        preview_image.delay(instance.pk)
+
+
+signals.post_save.connect(post_save_book, sender=Book)

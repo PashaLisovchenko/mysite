@@ -24,8 +24,14 @@
             </li>
         </ul>
         <ul class="menu" style="float: right">
+            <li>
+                Create:
+            </li>
             <li {% if section == "create_category" %}class="selected"{% endif %}>
-                <a href="{% url 'books:create_category' %}">CreateCategory</a>
+                <a href="{% url 'books:create_category' %}">Category</a>
+            </li>
+            <li {% if section == "create_book" %}class="selected"{% endif %}>
+                <a href="{% url 'books:create_book' %}">Book</a>
             </li>
         </ul>
     </header>

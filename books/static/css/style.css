@@ -171,12 +171,12 @@ label {
     margin-bottom:.4rem;
 }
 
-input, textarea {
+input, textarea, select {
     width: 300px;
     clear:both;
     float:left;
     margin:0 0 1rem;
-    background:#d7d7d7;
+    background: #eae5e2;
     border:0;
     padding:.6rem 1rem;
     font-size:1.4rem;

@@ -1,21 +1,21 @@
 from celery import shared_task
-
-
-@shared_task(bind=True)
-def debug_task(self):
-    print('Request: {0!r}'.format(self.request))
-
-
-@shared_task
-def add(x, y):
-    return x + y
+from io import BytesIO
+from books.models import Book
+from PIL import Image
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 
 @shared_task
-def mul(x, y):
-    return x * y
-
-
-@shared_task
-def xsum(numbers):
-    return sum(numbers)
+def preview_image(book_id):
+    book = Book.objects.get(pk=book_id)
+    if book.image:
+        size = 200, 400
+        im = Image.open(book.image.path)
+        im.thumbnail(size)
+        temp_handle = BytesIO()
+        im.save(temp_handle, 'jpeg')
+        temp_handle.seek(0)
+        print('preview image load...')
+        suf = SimpleUploadedFile(str(book.id)+'.jpeg', temp_handle.read(), content_type='image/jpeg')
+        book.preview_image.save(str(book.id)+'.jpeg', suf, save=True)
+        print('successfully')

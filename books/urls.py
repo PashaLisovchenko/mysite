@@ -8,6 +8,7 @@ urlpatterns = [
 
     url(r'^$', views.book_list, name="book_list"),
     url(r'^(?P<book>[-\w]+)/$', views.book_detail, name='book_detail'),
+    url(r'^create/new_book$', views.create_book, name="create_book"),
 
     url(r'^category/(?P<category>[-\w]+)/$', views.category_detail, name='category_detail'),
     url(r'^category/create/new_category$', views.create_category, name="create_category"),

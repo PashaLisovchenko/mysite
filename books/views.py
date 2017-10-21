@@ -1,5 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Book, Category, Author
+from .forms import CreateBookForm
+from .tasks import preview_image
 
 
 def book_list(request):
@@ -18,6 +20,24 @@ def book_detail(request, book):
         'section': 'books',
     }
     return render(request, 'detail_book.html', context)
+
+
+def create_book(request):
+    if request.method == "POST":
+        form = CreateBookForm(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            # title = form.changed_data['title']
+            form.save()
+            # book = Book.objects.get(title=title)
+            # preview_image.delay(book.id)
+            return redirect("/books")
+    else:
+        form = CreateBookForm()
+        context = {
+            'form': form,
+            'section': 'create_book',
+        }
+        return render(request, 'create_book.html', context)
 
 
 def author_list(request):

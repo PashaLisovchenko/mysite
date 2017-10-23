@@ -3,14 +3,14 @@ from . import views
 
 urlpatterns = [
 
-    url(r'^authors/$', views.author_list, name="author_list"),
-    url(r'^authors/(?P<author>[-\w]+)/$', views.author_detail, name='author_detail'),
+    url(r'^authors/$', views.AuthorListView.as_view(), name="author_list"),
+    url(r'^authors/(?P<author>[-\w]+)/$', views.AuthorDetailView.as_view(), name='author_detail'),
+    url(r'^authors/(?P<author>[-\w]+)/update/$', views.AuthorUpdateView.as_view(), name='update_author'),
 
-    url(r'^$', views.book_list, name="book_list"),
-    url(r'^(?P<book>[-\w]+)/$', views.book_detail, name='book_detail'),
-    url(r'^create/new_book$', views.create_book, name="create_book"),
+    url(r'^$', views.BookListView.as_view(), name="book_list"),
+    url(r'^(?P<slug>[-\w]+)/$', views.BookDetailView.as_view(), name='book_detail'),
+    url(r'^create/new_book/$', views.FormBookView.as_view(), name="create_book"),
 
-    url(r'^category/(?P<category>[-\w]+)/$', views.category_detail, name='category_detail'),
-    url(r'^category/create/new_category$', views.create_category, name="create_category"),
-
+    url(r'^category/(?P<category>[-\w]+)/$', views.CategoryDetailView.as_view(), name='category_detail'),
+    url(r'^category/create/new_category$', views.FormCategoryView.as_view(), name="create_category"),
 ]

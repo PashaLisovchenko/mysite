@@ -1,80 +1,103 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Book, Category, Author
-from .forms import CreateBookForm
-from .tasks import preview_image
+from .forms import CreateBookForm, CreateCategoryForm, CreateAuthorForm
+from django.views.generic import View, ListView, DetailView, CreateView,\
+    FormView, UpdateView, DeleteView
 
 
-def book_list(request):
-    book = Book.objects.all()
-    context = {
-        'books': book,
-        'section': 'books',
-    }
-    return render(request, 'list_book.html', context)
+class BookListView(ListView):
+    template_name = 'list_book.html'
+    model = Book
+    context_object_name = 'books'
+
+    def get_context_data(self, **kwargs):
+        context = super(BookListView, self).get_context_data(**kwargs)
+        context['section'] = 'books'
+        return context
 
 
-def book_detail(request, book):
-    book = get_object_or_404(Book, slug=book)
-    context = {
-        'book': book,
-        'section': 'books',
-    }
-    return render(request, 'detail_book.html', context)
+class BookDetailView(DetailView):
+    template_name = 'detail_book.html'
+    model = Book
+    context_object_name = 'book'
+    slug_url_kwarg = 'slug'
+
+    def get_context_data(self, **kwargs):
+        context = super(BookDetailView, self).get_context_data(**kwargs)
+        context['section'] = 'books'
+        return context
 
 
-def create_book(request):
-    if request.method == "POST":
-        form = CreateBookForm(request.POST or None, request.FILES or None)
-        if form.is_valid():
-            # title = form.changed_data['title']
-            form.save()
-            # book = Book.objects.get(title=title)
-            # preview_image.delay(book.id)
-            return redirect("/books")
-    else:
-        form = CreateBookForm()
-        context = {
-            'form': form,
-            'section': 'create_book',
-        }
-        return render(request, 'create_book.html', context)
+class FormBookView(CreateView):
+    template_name = 'create_book.html'
+    form_class = CreateBookForm
+
+    def form_valid(self, form):
+        form.save()
+        return redirect('/books')
+
+    def get_context_data(self, **kwargs):
+        context = super(FormBookView, self).get_context_data(**kwargs)
+        context['section'] = 'create_book'
+        return context
 
 
-def author_list(request):
-    author = Author.objects.all()
-    context = {
-        'author': author,
-        'section': 'author',
-    }
-    return render(request, 'list_author.html', context)
+class AuthorListView(ListView):
+    template_name = 'list_author.html'
+    model = Author
+    context_object_name = 'author'
+
+    def get_context_data(self, **kwargs):
+        context = super(AuthorListView, self).get_context_data(**kwargs)
+        context['section'] = 'author'
+        return context
 
 
-def author_detail(request, author):
-    author = get_object_or_404(Author, slug=author)
-    books = Book.objects.filter(author=author)
-    context = {
-        'books': books,
-        'author': author,
-        'section': 'author',
-    }
-    return render(request, 'detail_author.html', context)
+class AuthorDetailView(DetailView):
+    template_name = 'detail_author.html'
+    model = Author
+    context_object_name = 'author'
+    slug_url_kwarg = 'author'
+
+    def get_context_data(self, **kwargs):
+        context = super(AuthorDetailView, self).get_context_data(**kwargs)
+        books = Book.objects.filter(author=context['author'])
+        context['books'] = books
+        context['section'] = 'author'
+        return context
 
 
-def category_detail(request, category):
-    category = get_object_or_404(Category, slug=category)
-    books = Book.objects.filter(category=category)
-    context = {
-        'category': category,
-        'books': books,
-        'section': 'books',
-    }
-    return render(request, 'detail_category.html', context)
+class AuthorUpdateView(UpdateView):
+    model = Author
+    form_class = CreateAuthorForm
+    template_name = 'update_author_form.html'
+    slug_url_kwarg = 'author'
+    success_url = '/books/authors/'
 
 
-def create_category(request):
-    if request.method == 'POST':
-        Category.objects.create(name=request.POST['title'])
-    context = {
-        'section': 'create_category',
-    }
-    return render(request, 'create_category.html', context)
+class CategoryDetailView(DetailView):
+    template_name = 'detail_category.html'
+    model = Category
+    context_object_name = 'category'
+    slug_url_kwarg = 'category'
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryDetailView, self).get_context_data(**kwargs)
+        books = Book.objects.filter(category=context['category'])
+        context['books'] = books
+        context['section'] = 'books'
+        return context
+
+
+class FormCategoryView(CreateView):
+    template_name = 'create_category.html'
+    form_class = CreateCategoryForm
+
+    def form_valid(self, form):
+        form.save()
+        return redirect('/books')
+
+    def get_context_data(self, **kwargs):
+        context = super(FormCategoryView, self).get_context_data(**kwargs)
+        context['section'] = 'create_category'
+        return context

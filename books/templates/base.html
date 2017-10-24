@@ -33,6 +33,9 @@
             <li {% if section == "create_book" %}class="selected"{% endif %}>
                 <a href="{% url 'books:create_book' %}">Book</a>
             </li>
+            <li {% if section == "create_author" %}class="selected"{% endif %}>
+                <a href="{% url 'books:create_author' %}">Author</a>
+            </li>
         </ul>
     </header>
 

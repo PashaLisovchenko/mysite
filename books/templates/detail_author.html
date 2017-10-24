@@ -6,6 +6,11 @@
     <div class="detail-name">
         <h1>{{ author.first_name }} {{ author.last_name }}
             <i><sub>{{ author.date }}</sub></i>
+            <span style="float: right; font-size: 2rem">
+                <a href="{% url 'books:update_author' author=author.slug %}" >Update</a>
+                |
+                <a href="{% url 'books:delete_author' author=author.slug %}" >Delete</a>
+            </span>
         </h1>
     </div>
     <div class="detail-desk">

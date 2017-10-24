@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy
+
 from .models import Book, Category, Author
 from .forms import CreateBookForm, CreateCategoryForm, CreateAuthorForm
 from django.views.generic import View, ListView, DetailView, CreateView,\
@@ -28,7 +30,7 @@ class BookDetailView(DetailView):
         return context
 
 
-class FormBookView(CreateView):
+class BookFormView(CreateView):
     template_name = 'create_book.html'
     form_class = CreateBookForm
 
@@ -37,7 +39,7 @@ class FormBookView(CreateView):
         return redirect('/books')
 
     def get_context_data(self, **kwargs):
-        context = super(FormBookView, self).get_context_data(**kwargs)
+        context = super(BookFormView, self).get_context_data(**kwargs)
         context['section'] = 'create_book'
         return context
 
@@ -67,12 +69,43 @@ class AuthorDetailView(DetailView):
         return context
 
 
+class AuthorFormView(CreateView):
+    template_name = 'create_author.html'
+    form_class = CreateAuthorForm
+
+    def form_valid(self, form):
+        form.save()
+        return redirect('/books/authors')
+
+    def get_context_data(self, **kwargs):
+        context = super(AuthorFormView, self).get_context_data(**kwargs)
+        context['section'] = 'create_author'
+        return context
+
+
 class AuthorUpdateView(UpdateView):
     model = Author
     form_class = CreateAuthorForm
     template_name = 'update_author_form.html'
     slug_url_kwarg = 'author'
     success_url = '/books/authors/'
+
+    def get_context_data(self, **kwargs):
+        context = super(AuthorUpdateView, self).get_context_data(**kwargs)
+        context['section'] = 'author'
+        return context
+
+
+class AuthorDeleteView(DeleteView):
+    model = Author
+    template_name = 'delete_author.html'
+    slug_url_kwarg = 'author'
+    success_url = '/books/authors/'
+
+    def get_context_data(self, **kwargs):
+        context = super(AuthorDeleteView, self).get_context_data(**kwargs)
+        context['section'] = 'author'
+        return context
 
 
 class CategoryDetailView(DetailView):
@@ -89,7 +122,7 @@ class CategoryDetailView(DetailView):
         return context
 
 
-class FormCategoryView(CreateView):
+class CategoryFormView(CreateView):
     template_name = 'create_category.html'
     form_class = CreateCategoryForm
 
@@ -98,6 +131,6 @@ class FormCategoryView(CreateView):
         return redirect('/books')
 
     def get_context_data(self, **kwargs):
-        context = super(FormCategoryView, self).get_context_data(**kwargs)
+        context = super(CategoryFormView, self).get_context_data(**kwargs)
         context['section'] = 'create_category'
         return context

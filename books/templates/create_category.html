@@ -4,7 +4,6 @@
 <h1>Create New Category</h1>
 
 <form action="{% url 'books:create_category' %}" method="POST">{% csrf_token %}
-    <label>Enter name new category:</label>
     {{ form }}
     <input type="submit" value="Create category">
 </form>

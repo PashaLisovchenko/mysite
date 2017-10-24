@@ -1,10 +1,10 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse_lazy
+from django.shortcuts import redirect
+from django.views.generic.edit import FormMixin
 
-from .models import Book, Category, Author
-from .forms import CreateBookForm, CreateCategoryForm, CreateAuthorForm
-from django.views.generic import View, ListView, DetailView, CreateView,\
-    FormView, UpdateView, DeleteView
+from .models import Book, Category, Author, Comment
+from .forms import CreateBookForm, CreateCategoryForm, CreateAuthorForm, CommentForm
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, \
+    FormView
 
 
 class BookListView(ListView):
@@ -18,16 +18,33 @@ class BookListView(ListView):
         return context
 
 
-class BookDetailView(DetailView):
+class BookDetailView(FormMixin, DetailView):
     template_name = 'detail_book.html'
     model = Book
+    form_class = CommentForm
     context_object_name = 'book'
     slug_url_kwarg = 'slug'
 
     def get_context_data(self, **kwargs):
         context = super(BookDetailView, self).get_context_data(**kwargs)
+        comments = self.object.comments.filter(active=True)
+        context['comments'] = comments
         context['section'] = 'books'
         return context
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        self.object = self.get_object()
+        cd = form.cleaned_data
+        cd['book'] = self.object
+        Comment.objects.create(**cd)
+        return redirect('/books/'+self.object.slug)
 
 
 class BookFormView(CreateView):

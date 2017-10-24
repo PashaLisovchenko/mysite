@@ -1,5 +1,5 @@
-from django.forms import ModelForm
-from .models import Book, Category, Author
+from django.forms import ModelForm, HiddenInput
+from .models import Book, Category, Author, Comment
 
 
 class CreateBookForm(ModelForm):
@@ -18,3 +18,10 @@ class CreateAuthorForm(ModelForm):
     class Meta:
         model = Author
         exclude = ['slug']
+
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('name', 'email', 'body')
+        # widgets = {'book': HiddenInput()}

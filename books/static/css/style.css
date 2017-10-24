@@ -4,38 +4,32 @@
 * {
     box-sizing: border-box;
 }
-
 html {
     font-size: 10px;
 }
-
 body {
     margin:0;
     padding:0;
     font-family:helvetica, sans-serif;
 }
-
 p {
     line-height: 1.8rem;
 }
-
 a {
     color:#12c064;
     text-decoration:none;
 }
-
 a:hover {
     color:#00a74f;
 }
-
 h1, h2, h3, h4, h5 , h6 { font-family: 'Muli', sans-serif; font-weight:normal; }
-
 h1 {
     border-bottom:1px solid #bbb;
     padding:0 0 1rem 0;
     margin:1rem 0 2rem 0;
 }
 
+/*base template*/
 header {
     padding:1rem 10rem;
     font-size:1.4rem;
@@ -44,7 +38,6 @@ header {
     border-bottom: .4rem solid #1cdf78;
     overflow:auto;
 }
-
 header .logo {
     font-family: 'Muli', sans-serif;
     float:left;
@@ -52,7 +45,6 @@ header .logo {
     font-size:2rem;
     margin-right:10%;
 }
-
 header ul.menu {
     list-style:none;
     float:left;
@@ -63,41 +55,43 @@ header ul.menu li {
     float:left;
     padding: .4rem 1rem;
 }
-
 header ul.menu li.selected a, #header ul.menu li.selected a:hover {
     color:#1b6d32;
     font-weight:bold;
 }
-
 header a {
     color:#f3f7cc;
 }
-
 header a:hover {
     text-decoration: none;
     color:#fff;
 }
-
 .content {
     padding:3rem 10rem;
 }
 
-.content .book {
+/*BOOK LIST*/
+.book {
     border: .1rem solid #bbb;
     padding: 2rem;
     border-radius: 1rem;
     margin-bottom: 1rem;
-    width: 540px;
 }
-
 .book p{
     font-size: 1.3rem;
     color: #575456;
 }
-
 .book h1{
     color: #03994d;
     font-size: 2rem;
+}
+.prev_image-book{
+    float: left;
+    width: 17%;
+}
+.prev_image-book img{
+    height: 10rem;
+    width: 8rem;
 }
 .btn-book{
     background-color: #ffffff;
@@ -118,6 +112,36 @@ header a:hover {
     box-shadow: none;
     cursor: pointer;
 }
+
+/*BOOK DETAIL
+Image and form add comments*/
+.header-detail{
+    position: absolute;
+    display: block;
+    float: left;
+    width: 25%;
+}
+.form-comment{
+    position: relative;
+    float: left;
+    margin: 1rem;
+}
+.image-book{
+    float: left;
+    width: 30%;
+}
+.image-book img{
+    height: 40rem;
+    width: 30rem;
+    margin: 1rem;
+    position: relative;
+}
+
+/*info about the book and all comment*/
+.content-detail{
+    float: right;
+    width: 70%;
+}
 .detail-title{
     text-align: center;
     font-size: 2rem;
@@ -125,7 +149,11 @@ header a:hover {
 .detail-title sub{
     font-size: 1.4rem;
 }
+.detail-title h1{
+    margin: 1rem;
+}
 .detail-desk p{
+    margin: 1rem;
     font-size: 1.5rem;
     line-height: 2rem;
     color: #3f3c3c;
@@ -133,14 +161,29 @@ header a:hover {
     padding-bottom: 2rem;
 }
 .detail-info{
-    margin-top: 2rem;
-    float: right;
+    display: block;
+    text-align: right;
 }
 .detail-info p{
     font-size: 1.5rem;
     line-height: .5rem;
     color: #3f3c3c;
 }
+.comment {
+    padding-left: 30px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+.comment:nth-child(even) {
+    background:#efefef;
+}
+.comment .info {
+    font-weight:bold;
+    font-size:12px;
+    color:#666;
+}
+
+/*AUTHOR LIST*/
 .author{
     text-align: center;
     margin-bottom: 4rem;
@@ -152,6 +195,8 @@ header a:hover {
 .author p{
     font-size: 1.6rem;
 }
+
+/*AUTHOR DETAIL*/
 .detail-name sub{
     font-size: 1.2rem;
     font-weight: lighter;
@@ -160,17 +205,16 @@ header a:hover {
     font-weight: bold;
 }
 
+/*FORMS*/
 form {
     overflow:auto;
 }
-
 label {
     float:left;
     clear:both;
     color:#333;
     margin-bottom:.4rem;
 }
-
 input, textarea, select {
     width: 300px;
     clear:both;
@@ -181,7 +225,6 @@ input, textarea, select {
     padding:.6rem 1rem;
     font-size:1.4rem;
 }
-
 input[type=submit], a.button {
     font-weight:bold;
     background:#12c064;

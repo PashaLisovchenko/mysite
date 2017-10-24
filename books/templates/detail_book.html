@@ -3,27 +3,60 @@
 {% block title %}{{ book.title }}{% endblock %}
 
 {% block content %}
-    <div class="detail-title">
-        <h1>{{ book.title }}
-            <a href="{{ book.category.get_absolute_url }}">
-                <sub>{{ book.category }}</sub>
-            </a>
-        </h1>
+    <div class="header-detail">
+        <div class="image-book">
+            <img src="{{ book.image.url }}" alt="">
+        </div>
+        <div class="form-comment">
+            <h2>Add a new comment</h2>
+            <form action="." method="post">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <p><input type="submit" value="Add comment"></p>
+            </form>
+        </div>
     </div>
-    <div class="detail-desk">
-        <p>{{ book.description }}</p>
-    </div>
-    <div class="detail-info">
-        <p>Author(s) :
-            {% for author in book.author.all  %}
-                {% if forloop.last %}
-                    <a href="{{ author.get_absolute_url }}">{{ author }}.</a>
-                {% else %}
-                    <a href="{{ author.get_absolute_url }}">{{ author }},</a>
-                {% endif %}
+    <div class="content-detail">
+        <div class="detail-title">
+            <h1>{{ book.title }}
+                <a href="{{ book.category.get_absolute_url }}">
+                    <sub>{{ book.category }}</sub>
+                </a>
+            </h1>
+        </div>
+        <div class="detail-desk">
+            <p>{{ book.description }}</p>
+        </div>
+        <div class="detail-info">
+            <p>Author(s) :
+                {% for author in book.author.all  %}
+                    {% if forloop.last %}
+                        <a href="{{ author.get_absolute_url }}">{{ author }}.</a>
+                    {% else %}
+                        <a href="{{ author.get_absolute_url }}">{{ author }},</a>
+                    {% endif %}
+                {% endfor %}
+            </p>
+            <p>Year : {{ book.year }}</p>
+        </div>
+        <div class="comments">
+            {% with comments.count as total_comments %}
+                <h2>
+                    {{ total_comments }} comment{{ total_comments|pluralize }}
+                </h2>
+            {% endwith %}
+            {% for comment in comments %}
+                <div class="comment">
+                    <p class="info">
+                        Comment {{ forloop.counter }} by {{ comment.name }}
+                        {{ comment.created }}
+                    </p>
+                    {{ comment.body|linebreaks }}
+                </div>
+                {% empty %}
+                    <p>There are no comments yet.</p>
             {% endfor %}
-        </p>
-        <p>Year : {{ book.year }}</p>
+        </div>
     </div>
 {% endblock %}
 

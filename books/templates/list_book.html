@@ -6,12 +6,16 @@
     {% for book in books%}
         <div class="col-md-6">
             <div class="book">
-                <h1>{{book.title}}</h1>
-                <p>{{book.description|truncatechars:70}}</p>
-                <a href="{{ book.get_absolute_url }}">
-                   <button type="button" class="btn-book">Detail</button>
-                </a>
-                <br>
+                <div class="prev_image-book">
+                    <img src="{{ book.preview_image.url }}" alt="">
+                </div>
+
+                    <h1>{{book.title}}</h1>
+                    <p>{{book.description|truncatechars:100}}</p>
+                    <a href="{{ book.get_absolute_url }}">
+                       <button type="button" class="btn-book">Detail</button>
+                    </a>
+                    <br>
             </div>
         </div>
     {% endfor %}

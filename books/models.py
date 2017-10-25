@@ -1,7 +1,8 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils.text import slugify
-from django.db.models import signals
+from django.db.models import signals, Avg
+from django.dispatch import receiver
 
 
 class Author(models.Model):
@@ -57,6 +58,10 @@ class Book(models.Model):
                                       upload_to='preview/')
     author = models.ManyToManyField(Author)
     category = models.ForeignKey(Category)
+    avg_rating = models.FloatField(default=0)
+
+    class Meta:
+        ordering = ["-avg_rating"]
 
     def __str__(self):
         return self.title
@@ -88,9 +93,18 @@ class Comment(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
+    rating = models.IntegerField(default=0)
 
     class Meta:
         ordering = ('created',)
 
     def __str__(self):
         return 'Comment by {} on {}'.format(self.name, self.book)
+
+
+@receiver(signals.post_save, sender = Comment)
+def add_rating(instance, **kwargs):
+    book = instance.book
+    avg = book.comments.filter(active=True).aggregate(Avg('rating'))
+    book.avg_rating = avg['rating__avg']
+    book.save()

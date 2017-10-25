@@ -1,4 +1,4 @@
-from django.forms import ModelForm, HiddenInput
+from django.forms import ModelForm, HiddenInput, RadioSelect, Select
 from .models import Book, Category, Author, Comment
 
 
@@ -20,8 +20,17 @@ class CreateAuthorForm(ModelForm):
         exclude = ['slug']
 
 
+RATING_CHOICES = (
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+)
+
+
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
-        fields = ('name', 'email', 'body')
-        # widgets = {'book': HiddenInput()}
+        fields = ('name', 'email', 'body', 'rating')
+        widgets = {'rating': Select(choices=RATING_CHOICES)}

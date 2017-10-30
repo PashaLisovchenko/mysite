@@ -12,7 +12,6 @@
     <link href="{% static "css/style.css" %}" rel="stylesheet">
 </head>
 <body>
-
     <header>
         <a href="{% url 'books:book_list' %}"><span class="logo">BookView</span></a>
         <ul class="menu">
@@ -36,6 +35,16 @@
             <li {% if section == "create_author" %}class="selected"{% endif %}>
                 <a href="{% url 'books:create_author' %}">Author</a>
             </li>
+            <li>
+                Auth:
+            </li>
+            <li>
+                <a href="{% url 'accounts:login_view' %}">SignUp</a>
+            </li>
+            <li>
+                <a href="{% url 'accounts:signup_view' %}">SignIn</a>
+            </li>
+
         </ul>
     </header>
 

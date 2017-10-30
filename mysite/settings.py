@@ -25,7 +25,7 @@ SECRET_KEY = 'dh2wd4o$_99b51nuz@(84(*2u(qpqdt0x02hrzr028djd)&!)k'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+AUTH_USER_MODEL = 'accounts.User'
 
 # Application definition
 
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # my application
     'books',
     'django_extensions',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -79,7 +80,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db2.sqlite3'),
     }
 }
 

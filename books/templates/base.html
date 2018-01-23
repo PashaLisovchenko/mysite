@@ -35,15 +35,6 @@
             <li {% if section == "create_author" %}class="selected"{% endif %}>
                 <a href="{% url 'books:create_author' %}">Author</a>
             </li>
-            <li>
-                Auth:
-            </li>
-            <li>
-                <a href="{% url 'accounts:login_view' %}">SignUp</a>
-            </li>
-            <li>
-                <a href="{% url 'accounts:signup_view' %}">SignIn</a>
-            </li>
 
         </ul>
     </header>

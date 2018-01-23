@@ -5,11 +5,8 @@
     {% for a in author%}
         <div class="col-md-12">
             <div class="author">
-                <h1>{{a.first_name}} {{ a.last_name }}</h1>
+                <a href="{{ a.get_absolute_url }}"><h1>{{a.first_name}} {{ a.last_name }}</h1></a>
                 <p>{{a.bio|truncatechars:170}}</p>
-                <a href="{{ a.get_absolute_url }}">
-                   <button type="button" class="btn-book">Detail</button>
-                </a>
                 <br>
             </div>
         </div>
